@@ -11,7 +11,7 @@ export default function Brands() {
 
 <h2 className='text-center text-5xl font-medium text-green-500 p-7 bg-gray-100 pt-16'>All Brands.</h2>
 
-  <div className="grid gap-5 grid-cols-5 p-10 bg-gray-100 ">
+  <div className="grid grid-cols-2 md:grid-cols-5 gap-5 py-8 px-6 bg-gray-100 ">
   {allBrands?.data.data.map((brnd)=>{
     return <div key={brnd._id}>
      <img src={brnd.image} alt="brands" className='w-full h-[250px] rounded hover:shadow-xl hover:shadow-green-200' />

@@ -23,7 +23,7 @@ export default function AllOrders() {
   return <>
   <h2 className='text-center text-5xl font-medium text-green-500 p-7 pt-12'>My Orders.</h2>
 
-  <div className='pl-5 grid grid-cols-3'>
+  <div className='p-5 grid grid-cols-2 md:grid-cols-4'>
   {allOrders?.map((order)=> <> 
   <div className='p-2'>
    <h1 className='text-2xl font-medium bg-gray-100 rounded p-1'> price:{'$'}{order.totalOrderPrice}</h1>

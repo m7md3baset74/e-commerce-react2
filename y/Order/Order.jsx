@@ -56,7 +56,7 @@ async function visaOrder(values){
       });
 
   return <>
-  <form onSubmit={formik.handleSubmit} className='pt-12'>
+  <form onSubmit={formik.handleSubmit} className='container mx-auto  px-6 sm:px-6 md:px-6 pt-12'>
   <div className='max-w-md mx-auto py-6'>
    <div className="relative z-0 w-full mb-5 group">
       <input onChange={(e)=>{formik.setFieldValue('shippingAddress.details',e.target.value)}} type="text" name="details" id="details" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-400 peer" placeholder=" " required />

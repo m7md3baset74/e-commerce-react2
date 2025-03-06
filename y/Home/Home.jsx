@@ -4,7 +4,7 @@ import ProductCart from '../ProductCart/ProductCart';
 import { ColorRing } from 'react-loader-spinner';
 import { useQuery } from 'react-query';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Scrollbar } from 'swiper/modules';
+import { Autoplay, Pagination, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -38,61 +38,80 @@ export default function Home() {
 
   
   return <>
-  <div className="mx-auto pt-15 pb-8 sm:w-[640px] md:w-[768px] lg:w-[1190px]">
+  <div className="mx-auto pt-15 pb-8 container px-4 sm:px-4 md:px-4 lg:w-[1222px]">
   <div className='grid grid-cols-6'>
     <div className='col-span-4 w-full'>
 
-      <Swiper modules={[Pagination]}
-      pagination={{ clickable: true }}
-      spaceBetween={10}
-       slidesPerView={1} loop={true} style={{height:'100%'}}>
-        <SwiperSlide>
-          <img src={Slider1} alt="item" className='w-full h-full block' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={Slider2} alt="item" className='w-full h-full block' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={Slider3} alt="item" className='w-full h-full block' />
-        </SwiperSlide>
-      </Swiper>
+    <Swiper
+  modules={[Pagination, Autoplay]}
+  pagination={{ clickable: true }}
+  spaceBetween={10}
+  slidesPerView={1}
+  loop={true}
+  autoplay={{ delay: 1700, disableOnInteraction: false }}
+  style={{ height: '100%' }}
+>
+  <SwiperSlide>
+    <img src={Slider1} alt="item" className="w-full h-full block" />
+  </SwiperSlide>
+  <SwiperSlide>
+    <img src={Slider2} alt="item" className="w-full h-full block" />
+  </SwiperSlide>
+  <SwiperSlide>
+    <img src={Slider3} alt="item" className="w-full h-full block" />
+  </SwiperSlide>
+</Swiper>
 
     </div>
     <div className='col-span-2'>
-    <img src={blogimg1} alt="item" className='h-1/2 w-full block' />
-    <img src={blogimg2} alt="item" className='h-1/2 w-full block' />
+    <img src={blogimg1} alt="item" className='h-1/2 w-full block rounded' />
+    <img src={blogimg2} alt="item" className='h-1/2 w-full block rounded' />
     </div>
   </div>
   </div>
 
 
-  <div className="mx-auto pb-9 sm:w-[640px] md:w-[768px] lg:w-[1050px] relative">
-  <div className="absolute top-1/2 left-[-50px] z-10 -translate-y-1/2 cursor-pointer text-3xl text-green-600" id="prev-slide">
-    ❮
-  </div>
-  <div className="absolute top-1/2 right-[-50px] z-10 -translate-y-1/2 cursor-pointer text-3xl text-green-600" id="next-slide">
-    ❯
-  </div>
+ <div className="container mx-auto pb-9 px-4 sm:px-4 md:px-4 lg:w-[1160px] relative">
 
-  <Swiper
-    modules={[Navigation]}
-    navigation={{ nextEl: "#next-slide", prevEl: "#prev-slide" }}
-    slidesPerView={7}
-    loop={true}
-  >
-    {allCat?.data.data.map((cat) => (
-      <SwiperSlide key={cat._id}>
-        <img src={cat.image} alt="categorie" className="w-full h-[200px]" />
-        <div>{cat.name}</div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
+ <Swiper
+  modules={[Navigation,Autoplay]}
+  navigation={{
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  }}
+  autoplay={{ delay: 5000, disableOnInteraction: false }}
+  spaceBetween={7}
+  breakpoints={{
+    320: { slidesPerView: 2 },
+    640: { slidesPerView: 3 },
+    768: { slidesPerView: 4 },
+    1024: { slidesPerView: 7 },
+  }}
+  loop={true}
+  className="rounded-lg relative"
+>
+  {allCat?.data.data.map((cat) => (
+    <SwiperSlide key={cat._id} className="text-center">
+      <img
+        src={cat.image}
+        alt="category"
+        className="w-full h-[180px] object-cover rounded-lg"
+      />
+      <div className="text-sm font-semibold mt-2">{cat.name}</div>
+    </SwiperSlide>
+ ))}
+
+ <button className="swiper-button-prev text-white bg-black/30 p-1.5 rounded-full absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
+   ❮
+ </button>
+ <button className="swiper-button-next text-white bg-black/30 p-1.5 rounded-full absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
+   ❯
+ </button>
+</Swiper>
 </div>
 
   
 
-
-  
   {isLoading ? <div className='w-full h-screen flex justify-center items-center bg-white'>
     <ColorRing
   visible={true}
@@ -103,12 +122,13 @@ export default function Home() {
   wrapperClass="color-ring-wrapper"
   colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
   />
+
   </div>:
-  <div className="mx-auto  sm:w-[640px] md:w-[768px] lg:w-[1190px]  ">
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 pb-10">
+  <div className="mx-auto container px-4 sm:px-4 md:px-4 lg:w-[1222px]  ">
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pb-10">
   {AllProductsData.map((prod)=><ProductCart product={prod} key={prod._id}/>)}
   </div>
   </div>}
-  
-  </>
+  
+  </>
 }

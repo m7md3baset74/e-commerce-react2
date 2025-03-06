@@ -53,8 +53,9 @@ async function register(values){
     
   });
   return <>
-  <div className='text-center text-5xl text-gray-400 mt-5 pt-10'>Register Now</div>
-  
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+  <h2 className='text-center text-4xl md:text-5xl text-gray-400 mt-5 pt-10'>Register Now</h2>
 
 <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-10 rounded-lg shadow-lg">
   <div className="relative z-0 w-full mb-5 group">
@@ -101,6 +102,7 @@ async function register(values){
   {msg ?<div>{msg}</div>:null}
   {successMsg ?<div>{successMsg}</div>:null}
 </form>
+  </div>
 
   </>
 }

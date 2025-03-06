@@ -53,7 +53,9 @@ async function login(values){
     
   });
   return <>
-  <div className='text-center text-5xl text-gray-400 mt-5 pt-10'>Login Now</div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+  <h2 className='text-center text-4xl md:text-5xl text-gray-400 mt-5 pt-10'>Login Now</h2>
 
 <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-10 rounded-lg shadow-lg ">
 
@@ -82,6 +84,7 @@ async function login(values){
   {successMsg ?<div>{successMsg}</div>:null}
   
 </form>
+  </div>
 
   </>
 }
