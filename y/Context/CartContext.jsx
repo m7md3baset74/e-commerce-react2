@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import toast from 'react-hot-toast';
+
 
 
 export const CartContext = createContext();
@@ -93,6 +94,12 @@ export default function CartContextProvider({children}) {
             toast.error('Failed to clear cart!');
         }
     }
+
+    useEffect(() => {
+  if (localStorage.getItem('token')) {
+    getCartItems();
+  }
+}, []);
 
   return <CartContext.Provider value={{addToCart,numOfCartItems,setNumOfCartItems,getCartItems,allCartItems,updateItemCount,totalPrice,deleteCartItem,cartId,clearCart}}>{children}</CartContext.Provider>
 }

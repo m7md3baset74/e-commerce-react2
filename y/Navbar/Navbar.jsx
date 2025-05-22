@@ -3,6 +3,9 @@ import Logo from "../../src/assets/imgs/freshcart-logo.svg";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { CartContext } from "../Context/CartContext";
+import { FiShoppingCart } from "react-icons/fi";
+import { WishListContext } from "../Context/WishListContext";
+
 
 export default function Navbar() {
   const { token, setToken } = useContext(AuthContext);
@@ -11,6 +14,7 @@ export default function Navbar() {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { wishListCount } = useContext(WishListContext);
 
   function logout() {
     localStorage.removeItem("token");
@@ -61,15 +65,24 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/cart" className={getLinkClass("/cart")}>
-                    Cart
-                    <span className="bg-red-600 text-white px-1 rounded">{numOfCartItems}</span>
-                  </Link>
-                </li>
+  <Link to="/cart" className={`relative ${getLinkClass("/cart")}`}>
+    <FiShoppingCart className="text-2xl" />
+    {numOfCartItems > 0 && (
+      <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {numOfCartItems}
+      </span>
+    )}
+  </Link>
+</li>
                 <li>
-                  <Link to="/wishlist" className={getLinkClass("/wishlist")}>
-                    Wish List
-                  </Link>
+                  <Link to="/wishlist" className={`relative text-green-600 text-xl ${getLinkClass("/wishlist")}`}>
+  <i className="fas fa-heart"></i>
+  {wishListCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+      {wishListCount}
+    </span>
+  )}
+</Link>
                 </li>
                 <li>
                   <Link to="/categories" className={getLinkClass("/categories")}>
@@ -157,14 +170,25 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/cart" className={getLinkClass("/cart")} onClick={() => setMenuOpen(false)}>
-            Cart <span className="bg-red-600 text-white px-1 rounded">{numOfCartItems}</span>
-          </Link>
-        </li>
+  <Link to="/cart" className={`relative flex items-center ${getLinkClass("/cart")}`} onClick={() => setMenuOpen(false)}>Carts
+    <FiShoppingCart className="text-xl" />
+    {numOfCartItems > 0 && (
+      <span className="absolute-top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {numOfCartItems}
+      </span>
+    )}
+  </Link>
+</li>
         <li>
-          <Link to="/wishlist" className={getLinkClass("/wishlist")} onClick={() => setMenuOpen(false)}>
-            Wish List
-          </Link>
+          <Link to="/wishlist" className={`relative text-green-600 hover:text-green-500 text-xl ${getLinkClass("/wishlist")}`}  onClick={() => setMenuOpen(false)}>
+          <span className="text-gray-900 hover:text-green-500 ">Wish List</span>
+  <i className="fas fa-heart"></i>
+  {wishListCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+      {wishListCount}
+    </span>
+  )}
+</Link>
         </li>
         <li>
           <Link to="/categories" className={getLinkClass("/categories")} onClick={() => setMenuOpen(false)}>
